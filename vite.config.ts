@@ -177,7 +177,7 @@ export default defineConfig((config) => {
         'localhost',
         // '127.0.0.1',
         // Se o seu domínio no Railway mudar ou se você usar previews com outros nomes:
-         '.railway.app' // Permite qualquer subdomínio de railway.app (use com cautela)
+         '.railway.app', // Permite qualquer subdomínio de railway.app (use com cautela)
       ],
       // Se o Hot Module Replacement (HMR) não estiver funcionando corretamente
       // através do proxy do Railway, você pode precisar configurar o seguinte.
