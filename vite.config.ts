@@ -93,37 +93,18 @@ export default defineConfig((config) => {
     },
     build: {
       target: 'esnext',
-      rollupOptions: {
-        output: {
-          format: 'esm',
-        },
-      },
-      commonjsOptions: {
-        transformMixedEsModules: true,
-      },
-    },
-    optimizeDeps: {
-      esbuildOptions: {
-        define: {
-          global: 'globalThis',
-        },
-      },
-    },
-    resolve: {
-      alias: {
-        buffer: 'vite-plugin-node-polyfills/polyfills/buffer',
-      },
     },
     plugins: [
       nodePolyfills({
-        include: ['buffer', 'process', 'util', 'stream'],
+        // CORREÇÃO para o build (istextorbinary)
+        include: ['buffer', 'process', 'util', 'stream', 'path'], // 'path' ADICIONADO
         globals: {
           Buffer: true,
           process: true,
           global: true,
         },
         protocolImports: true,
-        exclude: ['child_process', 'fs', 'path'],
+        exclude: ['child_process', 'fs'], // 'path' REMOVIDO de exclude
       }),
       {
         name: 'buffer-polyfill',
@@ -166,18 +147,16 @@ export default defineConfig((config) => {
         },
       },
     },
-  };
-});
- // CORREÇÃO para o servidor de desenvolvimento (`pnpm run dev --host`)
+    // CORREÇÃO para o servidor de desenvolvimento (`pnpm run dev --host`)
     server: {
       host: true, // Garante que o Vite escute em 0.0.0.0 (todas as interfaces)
       allowedHosts: [
-        'boltdiy-production-97e4.up.railway.app',
+        '.railway.app',
         // Adicione aqui outros hosts se necessário, por exemplo:
-        'localhost',
-        // '127.0.0.1',
+        // 'localhost',
+        '127.0.0.1',
         // Se o seu domínio no Railway mudar ou se você usar previews com outros nomes:
-         '.railway.app', // Permite qualquer subdomínio de railway.app (use com cautela)
+        // '.railway.app' // Permite qualquer subdomínio de railway.app (use com cautela)
       ],
       // Se o Hot Module Replacement (HMR) não estiver funcionando corretamente
       // através do proxy do Railway, você pode precisar configurar o seguinte.
@@ -190,6 +169,7 @@ export default defineConfig((config) => {
     },
   };
 });
+
 function chrome129IssuePlugin() {
   return {
     name: 'chrome129IssuePlugin',
