@@ -168,7 +168,28 @@ export default defineConfig((config) => {
     },
   };
 });
-
+ // CORREÇÃO para o servidor de desenvolvimento (`pnpm run dev --host`)
+    server: {
+      host: true, // Garante que o Vite escute em 0.0.0.0 (todas as interfaces)
+      allowedHosts: [
+        'boltdiy-production-97e4.up.railway.app',
+        // Adicione aqui outros hosts se necessário, por exemplo:
+        'localhost',
+        // '127.0.0.1',
+        // Se o seu domínio no Railway mudar ou se você usar previews com outros nomes:
+         '.railway.app' // Permite qualquer subdomínio de railway.app (use com cautela)
+      ],
+      // Se o Hot Module Replacement (HMR) não estiver funcionando corretamente
+      // através do proxy do Railway, você pode precisar configurar o seguinte.
+      // Comece sem esta seção `hmr` e adicione apenas se o HMR estiver quebrado.
+      // hmr: {
+      //   protocol: 'wss', // WebSockets Seguros
+      //   host: 'boltdiy-production-f290.up.railway.app', // Seu domínio público
+      //   clientPort: 443, // Porta externa que o navegador acessa (geralmente 443 para HTTPS/WSS)
+      // }
+    },
+  };
+});
 function chrome129IssuePlugin() {
   return {
     name: 'chrome129IssuePlugin',
