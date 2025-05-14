@@ -195,3 +195,4 @@ function chrome129IssuePlugin() {
     },
   };
 }
+// A chave extra que estava aqui foi removida.
